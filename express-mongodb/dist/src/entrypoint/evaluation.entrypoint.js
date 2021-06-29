@@ -67,12 +67,16 @@ exports.EvaluationController = void 0;
 var inversify_express_utils_1 = require("inversify-express-utils");
 var save_evaluation_usecase_1 = require("../usecase/save-evaluation.usecase");
 var find_evaluation_by_id_usecase_1 = require("../usecase/find-evaluation-by-id.usecase");
+var inversify_1 = require("inversify");
+var dependency_identifiers_1 = require("../config/dependecy-injection/dependency-identifiers");
+require("reflect-metadata");
 var EvaluationController = (function (_super) {
     __extends(EvaluationController, _super);
-    function EvaluationController(findEvaluationById, saveEvaluation) {
+    function EvaluationController(evaluationGateway) {
         var _this = _super.call(this) || this;
-        _this.findEvaluationById = findEvaluationById;
-        _this.saveEvaluation = saveEvaluation;
+        _this.evaluationGateway = evaluationGateway;
+        _this.findEvaluationById = new find_evaluation_by_id_usecase_1.FindEvaluationById(_this.evaluationGateway);
+        _this.saveEvaluation = new save_evaluation_usecase_1.SaveEvaluation(_this.evaluationGateway);
         return _this;
     }
     EvaluationController.prototype.getEvaluationById = function (id) {
@@ -130,8 +134,8 @@ var EvaluationController = (function (_super) {
     ], EvaluationController.prototype, "saveAnEvaluation", null);
     EvaluationController = __decorate([
         inversify_express_utils_1.controller('/evaluation'),
-        __metadata("design:paramtypes", [find_evaluation_by_id_usecase_1.FindEvaluationById,
-            save_evaluation_usecase_1.SaveEvaluation])
+        __param(0, inversify_1.inject(dependency_identifiers_1.Identifiers.evaluationGateway)),
+        __metadata("design:paramtypes", [Object])
     ], EvaluationController);
     return EvaluationController;
 }(inversify_express_utils_1.BaseHttpController));

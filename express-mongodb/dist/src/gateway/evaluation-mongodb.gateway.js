@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -50,6 +53,7 @@ require("reflect-metadata");
 var mongodb_config_1 = require("../config/database/mongodb.config");
 var inversify_1 = require("inversify");
 var mongodb_1 = require("mongodb");
+var dependency_identifiers_1 = require("../config/dependecy-injection/dependency-identifiers");
 var EvaluationGateway = (function () {
     function EvaluationGateway(mongoDBConfig) {
         this.mongoDBConfig = mongoDBConfig;
@@ -105,12 +109,16 @@ var EvaluationGateway = (function () {
     };
     EvaluationGateway.prototype.getEvaluationCollection = function () {
         if (!this.evaluationCollection) {
-            this.evaluationCollection = this.mongoDBConfig.mongoClient.collection('evaluation');
+            var client = this.mongoDBConfig.mongoClient;
+            var collection = client.collection('evaluation');
+            this.evaluationCollection = collection;
         }
         return this.evaluationCollection;
     };
     EvaluationGateway = __decorate([
         inversify_1.injectable(),
+        __param(0, inversify_1.inject(dependency_identifiers_1.Identifiers.connectable)),
+        __param(0, inversify_1.named(dependency_identifiers_1.Identifiers.MongoDbConfiguration)),
         __metadata("design:paramtypes", [mongodb_config_1.MongoDbConfiguration])
     ], EvaluationGateway);
     return EvaluationGateway;

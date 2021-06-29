@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var evaluation_gateway_mock_1 = require("../../tests/__mocks__/usecase/interfaces/evaluation.gateway.mock");
+var evaluation_gateway_mock_1 = require("../../tests/mocks/usecase/interfaces/evaluation.gateway.mock");
 var evaluation_fixtures_1 = require("../../tests/fixtures/usecase/domain/evaluation.fixtures");
 var save_evaluation_usecase_1 = require("./save-evaluation.usecase");
 describe('SaveEvaluation - Unit Tests', function () {

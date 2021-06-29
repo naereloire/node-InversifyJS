@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var evaluation_mongodb_gateway_1 = require("./evaluation-mongodb.gateway");
-var mongodb_config_mock_1 = require("../../tests/__mocks__/config/database/mongodb.config.mock");
+var mongodb_config_mock_1 = require("../../tests/mocks/config/database/mongodb.config.mock");
 var evaluation_entity_fixture_1 = require("../../tests/fixtures/gateway/entity/evaluation-entity.fixture");
 describe('EvaluationMongoDBGateway - Unit Tests', function () {
     var gateway;
